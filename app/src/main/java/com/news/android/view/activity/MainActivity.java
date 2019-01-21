@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements TopHeadlinesPrese
                     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
                         switch (call.method) {
                             case "getMessage":
-                                result.success("Hello");
+                                result.success("Hello form android");
                                 break;
                             default:
                                 result.notImplemented(); // INFO: not implemented

@@ -9,10 +9,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/flutter/fultter_example/.android/Flutter" />
+            <option value="$PROJECT_DIR$/../flutter_module_form_field" />
+            <option value="$PROJECT_DIR$/../flutter_module_form_field/.android/Flutter" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

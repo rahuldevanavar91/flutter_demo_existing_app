@@ -1,6 +1,8 @@
 package com.news.android.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
@@ -22,16 +24,19 @@ import com.news.android.view.adapter.NewsListAdapter;
 
 import java.util.ArrayList;
 
+import io.flutter.app.FlutterActivityDelegate;
+import io.flutter.app.FlutterActivityEvents;
 import io.flutter.facade.Flutter;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugins.GeneratedPluginRegistrant;
+import io.flutter.view.FlutterNativeView;
 import io.flutter.view.FlutterView;
 
 /**
  * View Display the top headline list
  */
-public class MainActivity extends AppCompatActivity implements TopHeadlinesPresenter.TopHeadlineListener, Constants.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements TopHeadlinesPresenter.TopHeadlineListener, Constants.OnItemClickListener, FlutterActivityDelegate.ViewFactory {
 
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
@@ -40,10 +45,17 @@ public class MainActivity extends AppCompatActivity implements TopHeadlinesPrese
     private int mPage;
     private static final String PLATFORM_CHANNEL = "platfrom.channel.message/info";
 
+
+    private FlutterActivityDelegate delegate = new FlutterActivityDelegate(this, this);
+    private FlutterActivityEvents eventDelegate;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        eventDelegate = delegate;
+
         getWidget();
         FlutterView flutterView = Flutter.createView(
                 MainActivity.this,
@@ -56,9 +68,10 @@ public class MainActivity extends AppCompatActivity implements TopHeadlinesPrese
         setPlatformChannel(flutterView);
 
 
-        mHeadlinesPresenter = new TopHeadlinesPresenter(this);
+       /* mHeadlinesPresenter = new TopHeadlinesPresenter(this);
         mProgressBar.setVisibility(View.VISIBLE);
         mHeadlinesPresenter.getHeadlines(++mPage);
+ */
     }
 
     private void getWidget() {
@@ -116,5 +129,25 @@ public class MainActivity extends AppCompatActivity implements TopHeadlinesPrese
         intent.putExtra(getString(R.string.data), (Articles) value);
         startActivity(intent, options.toBundle());
 
+    }
+
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        this.eventDelegate.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public FlutterView createFlutterView(Context context) {
+        return null;
+    }
+
+    @Override
+    public FlutterNativeView createFlutterNativeView() {
+        return null;
+    }
+
+    @Override
+    public boolean retainFlutterNativeView() {
+        return false;
     }
 }

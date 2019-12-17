@@ -1,6 +1,10 @@
 include ':app'                                     // assumed existing content
 setBinding(new Binding([gradle: this]))                                 // new
 evaluate(new File(                                                      // new
-        settingsDir.parentFile,                                               // new
-        '/News/flutter/fultter_example/.android/include_flutter.groovy'                          // new
+        '/Users/gandhi/AndroidStudioProjects/flutter_module_form_field/.android/include_flutter.groovy'                          // new
 ))
+include ':flutter_module_form_field'
+project(':flutter_module_form_field').projectDir = new File('../flutter_module_form_field')
+
+include ':flutter_module_form_field'
+project(':flutter_module_form_field').projectDir = new File('../flutter_module_form_field')

@@ -136,8 +136,6 @@ public class MainActivity extends AppCompatActivity implements TopHeadlinesPrese
         this.eventDelegate.onConfigurationChanged(newConfig);
     }
 
-
-
     @Override
     public FlutterView createFlutterView(Context context) {
         return null;
